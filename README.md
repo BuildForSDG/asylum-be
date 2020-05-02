@@ -1,5 +1,6 @@
 A one-liner phrase describing this project or app
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e1810889961642c3a50cddcbb0316f70)](https://app.codacy.com/gh/BuildForSDG/asylum-be?utm_source=github.com&utm_medium=referral&utm_content=BuildForSDG/asylum-be&utm_campaign=Badge_Grade_Settings)
 [![Codacy Badge](https://img.shields.io/badge/Code%20Quality-D-red)](https://img.shields.io/badge/Code%20Quality-D-red)
 
 
