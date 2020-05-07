@@ -216,6 +216,14 @@ testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "requests", "xm
 
 [[package]]
 category = "main"
+description = "Strict separation of settings from code."
+name = "python-decouple"
+optional = false
+python-versions = "*"
+version = "3.3"
+
+[[package]]
+category = "main"
 description = "World timezone definitions, modern and historical"
 name = "pytz"
 optional = false
@@ -260,7 +268,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "cff0db73ed4469bb961d0b371c911f57d0e24f7afb46cd479fb22f28f37aeca6"
+content-hash = "66511799b6ebab3705b38ecae098d9edebe836bbfc8058511be18e2a022cc3a9"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -335,6 +343,9 @@ pyparsing = [
 pytest = [
     {file = "pytest-5.4.1-py3-none-any.whl", hash = "sha256:0e5b30f5cb04e887b91b1ee519fa3d89049595f428c1db76e73bd7f17b09b172"},
     {file = "pytest-5.4.1.tar.gz", hash = "sha256:84dde37075b8805f3d1f392cc47e38a0e59518fb46a431cfdaf7cf1ce805f970"},
+]
+python-decouple = [
+    {file = "python-decouple-3.3.tar.gz", hash = "sha256:55c546b85b0c47a15a47a4312d451a437f7344a9be3e001660bccd93b637de95"},
 ]
 pytz = [
     {file = "pytz-2020.1-py2.py3-none-any.whl", hash = "sha256:a494d53b6d39c3c6e44c3bec237336e14305e4f29bbf800b599253057fbb79ed"},
