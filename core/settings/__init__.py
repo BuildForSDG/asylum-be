@@ -1,3 +1,5 @@
+""" Pick settings based on environment. """
+
 import os
 
 if 'BSDG_ENV' in os.environ:
