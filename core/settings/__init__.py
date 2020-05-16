@@ -1,4 +1,4 @@
-""" Pick settings based on environment. """
+"""Pick settings based on environment."""
 
 import os
 
