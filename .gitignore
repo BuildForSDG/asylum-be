@@ -1,6 +1,9 @@
 # FILES
 **/**/.pyc
 .DS_Store
+local.py
+db.sqlite3
+.env
 
 # DIRECTORIES
 **/**/__pycache__
