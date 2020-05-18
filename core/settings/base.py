@@ -76,6 +76,12 @@ USE_L10N = True
 USE_TZ = True
 
 
+# Authentication settings
+# Custom user model and related all-auth settings
+
+AUTH_USER_MODEL = 'accounts.User'
+
+
 # Default DRF settings
 # https://www.django-rest-framework.org/api-guide/permissions/
 
