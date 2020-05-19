@@ -28,6 +28,8 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['username', ]
 
     def __str__(self):
+        """Model string representation."""
+
         return self.username if self.username else self.email
 
 
@@ -47,6 +49,8 @@ class Profile(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
+        """Model string representation."""
+
         if self.user.first_name:
             return 'Profile: %s' % self.user.get_full_name()
         return 'Profile: %s' % self.user.email
