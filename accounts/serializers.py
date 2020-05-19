@@ -13,7 +13,6 @@ class UserSerializer(UserDetailsSerializer):
 
     class Meta(UserDetailsSerializer.Meta):
         """Serializer specification for fields etc."""
-
         fields = UserDetailsSerializer.Meta.fields + (
             'avatar',
             'gender',
