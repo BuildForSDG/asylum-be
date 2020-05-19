@@ -12,6 +12,7 @@ class UserSerializer(UserDetailsSerializer):
     is_patient = serializers.BooleanField(source='profile.is_patient', read_only=True)
 
     class Meta(UserDetailsSerializer.Meta):
+
         """Serializer specification for fields etc."""
         fields = UserDetailsSerializer.Meta.fields + (
             'avatar',
