@@ -25,7 +25,7 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username',]
+    REQUIRED_FIELDS = ['username', ]
 
     def __str__(self):
         return self.username if self.username else self.email
@@ -48,8 +48,8 @@ class Profile(models.Model):
 
     def __str__(self):
         if self.user.first_name:
-            return 'Profile: %s' %self.user.get_full_name()
-        return 'Profile: %s' %self.user.email
+            return 'Profile: %s' % self.user.get_full_name()
+        return 'Profile: %s' % self.user.email
 
     def age(self):
         return CURRENT_YEAR - self.birth_year
@@ -62,5 +62,6 @@ def on_user_saved(sender, instance, created, **kwargs):
     user_profile_qs = Profile.objects.filter(user=instance)
     if created or not user_profile_qs:
         Profile.objects.create(user=instance)
+
 
 post_save.connect(on_user_saved, sender=User)

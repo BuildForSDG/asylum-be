@@ -3,6 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 
 from . models import User, Profile
 
+
 class CustomUserAdmin(UserAdmin):
     pass
 

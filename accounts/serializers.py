@@ -1,8 +1,6 @@
 from rest_auth.serializers import UserDetailsSerializer
 from rest_framework import serializers
 
-from . models import Profile
-
 
 class UserSerializer(UserDetailsSerializer):
     avatar = serializers.ImageField(source='profile.avatar')
@@ -30,11 +28,16 @@ class UserSerializer(UserDetailsSerializer):
 
         profile = instance.profile
         if profile_data:
-            if profile_data.get('avatar'): profile.avatar = profile_data.get('avatar')
-            if profile_data.get('gender'): profile.gender = profile_data.get('gender')
-            if profile_data.get('designation'): profile.designation = profile_data.get('designation')
-            if profile_data.get('managed_account'): profile.managed_account = profile_data.get('managed_account')
-            if profile_data.get('birth_year'): profile.birth_year = profile_data.get('birth_year')
+            if profile_data.get('avatar'):
+                profile.avatar = profile_data.get('avatar')
+            if profile_data.get('gender'):
+                profile.gender = profile_data.get('gender')
+            if profile_data.get('designation'):
+                profile.designation = profile_data.get('designation')
+            if profile_data.get('managed_account'):
+                profile.managed_account = profile_data.get('managed_account')
+            if profile_data.get('birth_year'):
+                profile.birth_year = profile_data.get('birth_year')
 
             profile.save()
 
