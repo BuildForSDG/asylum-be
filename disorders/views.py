@@ -1,4 +1,4 @@
-from rest_framework import status, viewsets
+from rest_framework import filters, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -43,3 +43,10 @@ class DisorderViewSet(viewsets.ModelViewSet):
 
         resp = {'message': 'A valid symptom id is required'}
         return Response(resp, status=status.HTTP_400_BAD_REQUEST)
+
+
+class SymptomViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Symptom.objects.all()
+    serializer_class = SymptomSerializer
+    filter_backends = [filters.SearchFilter, ]
+    search_fields = ['title', ]

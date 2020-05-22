@@ -3,10 +3,11 @@
 from django.urls import path, include
 from rest_framework import routers
 
-from disorders.views import DisorderViewSet
+from disorders.views import DisorderViewSet, SymptomViewSet
 
 router = routers.DefaultRouter()
 router.register('disorders', DisorderViewSet)
+router.register('symptoms', SymptomViewSet)
 
 urlpatterns = [
 
