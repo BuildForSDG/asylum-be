@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     'api',
+    'diseases.app.DiseasesConfig',
 ]
 
 MIDDLEWARE = [
@@ -80,6 +81,8 @@ USE_TZ = True
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    ],
+    'DEFAULT_PAGINATION_CLASS':'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE':10,
 }
