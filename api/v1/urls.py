@@ -9,5 +9,4 @@ urlpatterns = [
     path('auth/register/', include('rest_auth.registration.urls')),
 
     path('diseases/',include('diseases.urls')),
-
 ]
