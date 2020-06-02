@@ -8,6 +8,13 @@ app = Celery('core')
 app.config_from_object('django.conf:settings')
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
+app.conf.beat_schedule = {
+    'check-unsent-mail-every-morning': {
+        'task': 'notifications.tasks.check_unsent_mail',
+        'schedule': crontab(hour='3', minute=0),
+    },
+}
+
 
 @app.task(bind=True)
 def debug_task(self):
