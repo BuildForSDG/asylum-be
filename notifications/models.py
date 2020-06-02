@@ -5,7 +5,7 @@ User = get_user_model()
 
 
 class Message(models.Model):
-    sender = models.EmailField()
+    sender = models.EmailField(null=True)
     name = models.CharField(max_length=99, blank=True)
     recipient = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     subject = models.CharField(max_length=99, blank=True)
