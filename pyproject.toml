@@ -17,6 +17,7 @@ django-rest-auth = {extras = ["with_social"], version = "^0.9.5"}
 django-cors-headers = "^3.3.0"
 celery = "^4.4.3"
 redis = "^3.5.3"
+django-sendgrid-v5 = "^0.8.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
