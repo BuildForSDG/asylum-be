@@ -7,10 +7,14 @@ User = get_user_model()
 
 
 class UserFilter(filters.FilterSet):
+    category = filters.CharFilter(field_name='profile__designation', lookup_expr='iexact')
+    gender = filters.CharFilter(field_name='profile__gender', lookup_expr='iexact')
 
     class Meta:
         model = User
-        fields = [
-            'profile__gender'
-            'profile__designation',
-        ]
+        fields = {
+            'username': ['icontains', ],
+            'email': ['icontains', ],
+            'first_name': ['icontains', ],
+            'last_name': ['icontains', ],
+        }
