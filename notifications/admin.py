@@ -1,3 +1,11 @@
 from django.contrib import admin
 
-# Register your models here.
+from . models import Message
+
+
+class MessageAdmin(admin.ModelAdmin):
+    list_display = ['pk', 'subject', 'sender', 'timestamp', 'mail_sent']
+    list_display_links = ['subject', ]
+
+
+admin.site.register(Message, MessageAdmin)
