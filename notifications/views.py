@@ -2,6 +2,7 @@ from rest_framework import mixins, permissions, viewsets
 
 from . models import Message
 from . serializers import MessageSerializer
+from . tasks import send_message
 
 
 class MessageViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
@@ -16,4 +17,4 @@ class MessageViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         else:
             message = serializer.save(sender=self.request.user.email)
 
-        # call task here
+        send_message.delay(message.id)
