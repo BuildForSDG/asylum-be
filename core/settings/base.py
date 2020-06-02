@@ -114,6 +114,18 @@ REST_FRAMEWORK = {
 }
 
 
+# Site admins and managers
+# https://docs.djangoproject.com/en/2.2/ref/settings/
+
+ADMINS = (
+    ('Mohammed Mwijaa', 'mm.mwijaa@gmail.com'),
+)
+
+MANAGERS = (
+    ('Mohammed Mwijaa', 'mm.mwijaa@gmail.com'),
+)
+
+
 # Django sites settings
 # https://docs.djangoproject.com/en/2.2/ref/contrib/sites/
 
