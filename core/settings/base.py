@@ -36,6 +36,7 @@ INSTALLED_APPS = [
 
     'accounts',
     'api',
+    'disorders',
 ]
 
 MIDDLEWARE = [
