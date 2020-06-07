@@ -28,8 +28,17 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['username', ]
 
     def __str__(self):
-        """Model string representation."""
         return self.username if self.username else self.email
+
+    @property
+    def reviews(self):
+        if not self.profile.is_patient:
+            rev_count = self.reviewed.count()
+            rating_list = self.reviewed.all().values_list('rating', flat=True)
+            avg_rating = sum(rating_list) / rev_count
+            return {'count': rev_count, 'average_rating': avg_rating}
+        else:
+            return {'count': 0, 'average_rating': 0}
 
 
 class Profile(models.Model):
