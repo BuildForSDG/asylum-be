@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'api',
     'disorders',
     'notifications',
+    'ratings',
 ]
 
 MIDDLEWARE = [

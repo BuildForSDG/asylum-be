@@ -28,8 +28,17 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['username', ]
 
     def __str__(self):
-        """Model string representation."""
         return self.username if self.username else self.email
+
+    @property
+    def review_count(self):
+        return self.reviewed.count()
+
+    @property
+    def average_rating(self):
+        rating_list = self.reviewed.all().values_list('rating', flat=True)
+        return sum(rating_list) / self.review_count
+
 
 
 class Profile(models.Model):
@@ -53,9 +62,11 @@ class Profile(models.Model):
             return 'Profile: %s' % self.user.get_full_name()
         return 'Profile: %s' % self.user.email
 
+    @property
     def age(self):
         return CURRENT_YEAR - self.birth_year
 
+    @property
     def is_patient(self):
         return True if self.designation == 'patient' else False
 
