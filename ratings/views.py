@@ -11,12 +11,13 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         target = serializer.validated_data.get('target', None)
-        qs = Review.objects.filter(reviewer=self.request.user, target=target)
-        if qs:
-            review = self.serializer_class(qs.first(), self.request.data)
-            if review.is_valid():
-                review.save()
+        if not target.profile.is_patient:
+            qs = Review.objects.filter(reviewer=self.request.user, target=target)
+            if qs:
+                review = self.serializer_class(qs.first(), self.request.data)
+                if review.is_valid():
+                    review.save()
+                else:
+                    return Response(review.errors, status=status.HTTP_400_BAD_REQUEST)
             else:
-                return Response(review.errors, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            serializer.save(reviewer=self.request.user)
+                serializer.save(reviewer=self.request.user)

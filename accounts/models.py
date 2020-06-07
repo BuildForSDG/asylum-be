@@ -53,9 +53,11 @@ class Profile(models.Model):
             return 'Profile: %s' % self.user.get_full_name()
         return 'Profile: %s' % self.user.email
 
+    @property
     def age(self):
         return CURRENT_YEAR - self.birth_year
 
+    @property
     def is_patient(self):
         return True if self.designation == 'patient' else False
 
