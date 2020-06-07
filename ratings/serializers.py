@@ -7,4 +7,8 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        exclude = ['reviewer', ]
+        exclude = ['created', ]
+        extra_kwargs = {
+            'target': {'write_only': True},
+            'reviewer': {'read_only': True}
+        }
