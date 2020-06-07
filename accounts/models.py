@@ -31,14 +31,14 @@ class User(AbstractUser):
         return self.username if self.username else self.email
 
     @property
-    def reviews(self):
-        if not self.profile.is_patient:
-            rev_count = self.reviewed.count()
-            rating_list = self.reviewed.all().values_list('rating', flat=True)
-            avg_rating = sum(rating_list) / rev_count
-            return {'count': rev_count, 'average_rating': avg_rating}
-        else:
-            return {'count': 0, 'average_rating': 0}
+    def review_count(self):
+        return self.reviewed.count()
+
+    @property
+    def average_rating(self):
+        rating_list = self.reviewed.all().values_list('rating', flat=True)
+        return sum(rating_list) / self.review_count
+
 
 
 class Profile(models.Model):

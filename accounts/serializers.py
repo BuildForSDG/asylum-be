@@ -10,7 +10,8 @@ class UserSerializer(UserDetailsSerializer):
     birth_year = serializers.IntegerField(source='profile.birth_year', write_only=True)
     age = serializers.IntegerField(source='profile.age', read_only=True)
     is_patient = serializers.BooleanField(source='profile.is_patient', read_only=True)
-    reviews = serializers.DictField(child=serializers.FloatField(), read_only=True)
+    review_count = serializers.IntegerField(read_only=True)
+    average_rating = serializers.FloatField(read_only=True)
 
     class Meta(UserDetailsSerializer.Meta):
 
@@ -23,7 +24,8 @@ class UserSerializer(UserDetailsSerializer):
             'birth_year',
             'age',
             'is_patient',
-            'reviews'
+            'review_count',
+            'average_rating'
         )
 
     def update(self, instance, validated_data):
