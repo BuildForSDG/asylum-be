@@ -57,7 +57,6 @@ class Profile(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        """Model string representation."""
         if self.user.first_name:
             return 'Profile: %s' % self.user.get_full_name()
         return 'Profile: %s' % self.user.email
@@ -72,9 +71,9 @@ class Profile(models.Model):
 
 
 def on_user_saved(sender, instance, created, **kwargs):
-    user_profile_qs = Profile.objects.filter(user=instance)
-    if created or not user_profile_qs:
-        Profile.objects.create(user=instance)
+    from . tasks import create_user_profile
+
+    create_user_profile.delay(instance.id, created)
 
 
 post_save.connect(on_user_saved, sender=User)
