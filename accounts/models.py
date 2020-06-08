@@ -4,6 +4,8 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.utils import timezone
 
+from disorders.models import Disorder
+
 
 GENDER_CHOICES = (
     ('male', 'Male'),
@@ -40,13 +42,13 @@ class User(AbstractUser):
         return sum(rating_list) / self.review_count
 
 
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     avatar = models.ImageField(null=True, upload_to='avatars/%Y/%m/')
     gender = models.CharField(max_length=11, default='unspecified', choices=GENDER_CHOICES)
     designation = models.CharField(max_length=10, default='patient', choices=DESIGNATIONS)
+    conditions = models.ManyToManyField(Disorder)
     managed_account = models.BooleanField(default=False)
     birth_year = models.PositiveIntegerField(
         default=ADULT_BIRTH_YEAR,
