@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
@@ -71,6 +73,12 @@ class Profile(models.Model):
     @property
     def is_patient(self):
         return True if self.designation == 'patient' else False
+
+    @property
+    def specialist_ids(self):
+        if self.designation == 'patient' and self.recommended:
+            return json.loads(self.recommended)
+        return []
 
 
 def on_user_saved(sender, instance, created, **kwargs):
