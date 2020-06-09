@@ -8,7 +8,7 @@ authors = [
 
 [tool.poetry.dependencies]
 python = "^3.7"
-django = "2.2.10"
+django = "2.2.13"
 gunicorn = "^20.0.4"
 djangorestframework = "^3.11.0"
 python-decouple = "^3.3"
@@ -20,6 +20,10 @@ redis = "^3.5.3"
 django-sendgrid-v5 = "^0.8.1"
 django-filter = "^2.2.0"
 django-rest-swagger = "^2.2.0"
+django-storages = "^1.9.1"
+dj-database-url = "^0.5.0"
+psycopg2-binary = "^2.8.5"
+boto3 = "^1.13.24"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
