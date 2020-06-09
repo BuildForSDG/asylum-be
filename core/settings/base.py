@@ -121,6 +121,22 @@ REST_FRAMEWORK = {
 }
 
 
+# Rest swagger settings for API docs
+# https://django-rest-swagger.readthedocs.io/en/latest/settings/
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'api_key': {
+            'type': 'apiKey',
+            'description': 'Token authentication for Swagger UI Client',
+            'in': 'header',
+            'name': 'Authorization'
+        }
+    },
+    'USE_SESSION_AUTH': False,
+}
+
+
 # Site admins and managers
 # https://docs.djangoproject.com/en/2.2/ref/settings/
 
