@@ -2,7 +2,7 @@ from rest_framework import mixins, permissions, viewsets
 
 from . models import Invitation, Message
 from . serializers import InvitationSerializer, MessageSerializer
-from . tasks import send_message
+from . tasks import send_invitation, send_message
 
 
 class MessageViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
@@ -26,3 +26,5 @@ class InvitationViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
 
     def perform_create(self, serializer):
         i = serializer.save(sender=self.request.user)
+
+        send_invitation.delay(i.id)

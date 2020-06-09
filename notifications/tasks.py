@@ -5,7 +5,7 @@ from django.core.mail import mail_admins, send_mail
 from django.utils import timezone
 
 from core.celery import app
-from . models import Message
+from . models import Invitation, Message
 
 logger = get_task_logger(__name__)
 
@@ -42,4 +42,20 @@ def check_unsent_mail(self):
         logger.info('All mail sent!!')
     except Exception as e:
         logger.error('An error occured: %s' %e)
+        raise self.retry(exc=e, max_retries=5)
+
+@app.task(bind=True, retry_backoff=True, retry_backoff_max=20)
+def send_invitation(self, invite_id):
+    logger.info('Sending email for invitation with ID %s...' % invite_id)
+
+    try:
+        i = Invitation.objects.get(pk=invite_id)
+        subject = '[IMPORTANT] Invitation To Asylum'
+        body = 'This is a sample invitation message with relevant links' # Use email template
+        send_mail(subject, body, i.sender.email, [i.recipient])
+
+        i.mail_sent = True
+        i.save()
+    except Exception as e:
+        logger.error('Could not send invitation: %s' % str(e))
         raise self.retry(exc=e, max_retries=5)
