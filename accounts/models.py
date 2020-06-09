@@ -1,8 +1,12 @@
+import json
+
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils import timezone
+
+from disorders.models import Disorder
 
 
 GENDER_CHOICES = (
@@ -40,24 +44,24 @@ class User(AbstractUser):
         return sum(rating_list) / self.review_count
 
 
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     avatar = models.ImageField(null=True, upload_to='avatars/%Y/%m/')
     gender = models.CharField(max_length=11, default='unspecified', choices=GENDER_CHOICES)
     designation = models.CharField(max_length=10, default='patient', choices=DESIGNATIONS)
+    conditions = models.ManyToManyField(Disorder)
     managed_account = models.BooleanField(default=False)
     birth_year = models.PositiveIntegerField(
         default=ADULT_BIRTH_YEAR,
         validators=[MaxValueValidator(CURRENT_YEAR), MinValueValidator(CENTURY_AGO)]
     )
 
+    recommended = models.CharField(max_length=50, default='')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        """Model string representation."""
         if self.user.first_name:
             return 'Profile: %s' % self.user.get_full_name()
         return 'Profile: %s' % self.user.email
@@ -70,11 +74,20 @@ class Profile(models.Model):
     def is_patient(self):
         return True if self.designation == 'patient' else False
 
+    @property
+    def specialist_ids(self):
+        if self.designation == 'patient' and self.recommended:
+            return json.loads(self.recommended)
+        return []
+
 
 def on_user_saved(sender, instance, created, **kwargs):
-    user_profile_qs = Profile.objects.filter(user=instance)
-    if created or not user_profile_qs:
-        Profile.objects.create(user=instance)
+    from . tasks import create_user_profile, recommend_specialists
+
+    if instance.profile.is_patient:
+        recommend_specialists.delay(instance.id)
+
+    create_user_profile.delay(instance.id, created)
 
 
 post_save.connect(on_user_saved, sender=User)

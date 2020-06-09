@@ -21,3 +21,15 @@ class Message(models.Model):
         if not self.subject:
             self.subject = 'Message From %s' %(self.name if self.name else self.sender)
         super(Message, self).save(*args, **kwargs)
+
+
+class Invitation(models.Model):
+    sender = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    recipient = models.EmailField()
+    accepted = models.BooleanField(default=False)
+    mail_sent = models.BooleanField(default=False)
+
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return 'Invitation To %s' % self.recipient
