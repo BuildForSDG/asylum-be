@@ -263,7 +263,7 @@ description = "Swagger UI for Django REST Framework 3.5+"
 name = "django-rest-swagger"
 optional = false
 python-versions = "*"
-version = "2.2.0"
+version = "2.1.2"
 
 [package.dependencies]
 coreapi = ">=2.3.0"
@@ -787,7 +787,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "91b3945dd5518ad489ac4bbbbe12bef2b22815e284fee6ea03cad2f190a9d30f"
+content-hash = "4e6498bb247d835958729c3ae43e45f546858d2ac5040abdad4ddadb9996cba5"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -866,8 +866,8 @@ django-rest-auth = [
     {file = "django-rest-auth-0.9.5.tar.gz", hash = "sha256:f11e12175dafeed772f50d740d22caeab27e99a3caca24ec65e66a8d6de16571"},
 ]
 django-rest-swagger = [
-    {file = "django-rest-swagger-2.2.0.tar.gz", hash = "sha256:48f6aded9937e90ae7cbe9e6c932b9744b8af80cc4e010088b3278c700e0685b"},
-    {file = "django_rest_swagger-2.2.0-py2.py3-none-any.whl", hash = "sha256:b039b0288bab4665cd45dc5d16f94b13911bc4ad0ed55f74ad3b90aa31c87c17"},
+    {file = "django-rest-swagger-2.1.2.tar.gz", hash = "sha256:ff889e2b339a9a57010dba7729d56471e05b77827f6dd36c0bcb983839882598"},
+    {file = "django_rest_swagger-2.1.2-py2.py3-none-any.whl", hash = "sha256:3471e6c21a3e97751fa6f7b81b66e916e40fa645cac36be1594c0efed810d247"},
 ]
 django-sendgrid-v5 = [
     {file = "django-sendgrid-v5-0.8.1.tar.gz", hash = "sha256:31c2ab2a0c91a3443262d9a39986de0ef306c21f8af55ce67742d1ec02a344c6"},
