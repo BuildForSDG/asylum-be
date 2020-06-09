@@ -55,6 +55,7 @@ class Profile(models.Model):
         validators=[MaxValueValidator(CURRENT_YEAR), MinValueValidator(CENTURY_AGO)]
     )
 
+    recommended = models.CharField(max_length=50, default='')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -73,7 +74,10 @@ class Profile(models.Model):
 
 
 def on_user_saved(sender, instance, created, **kwargs):
-    from . tasks import create_user_profile
+    from . tasks import create_user_profile, recommend_specialists
+
+    if instance.profile.is_patient:
+        recommend_specialists.delay(instance.id)
 
     create_user_profile.delay(instance.id, created)
 
