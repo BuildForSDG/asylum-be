@@ -15,7 +15,8 @@ class MessageViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         if sender:
             message = serializer.save()
         else:
-            message = serializer.save(sender=self.request.user.email) # check auth
+            if self.request.user.is_authenticated:
+                message = serializer.save(sender=self.request.user.email)
 
         send_message.delay(message.id)
 
@@ -23,6 +24,7 @@ class MessageViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
 class InvitationViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     queryset = Invitation.objects.all()
     serializer_class = InvitationSerializer
+    permission_classes = [permissions.AllowAny]
 
     def perform_create(self, serializer):
         i = serializer.save(sender=self.request.user)

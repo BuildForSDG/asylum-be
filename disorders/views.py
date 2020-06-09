@@ -1,7 +1,8 @@
-from rest_framework import filters, status, viewsets
+from rest_framework import filters, permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from api.permissions import IsSpecialistOrReadOnly
 from . models import Disorder, Symptom
 from . serializers import DisorderSerializer, SymptomSerializer
 
@@ -9,6 +10,7 @@ from . serializers import DisorderSerializer, SymptomSerializer
 class DisorderViewSet(viewsets.ModelViewSet):
     queryset = Disorder.objects.filter(verified=True).select_related().prefetch_related()
     serializer_class = DisorderSerializer
+    permission_classes = [permissions.IsAuthenticated, IsSpecialistOrReadOnly]
 
     @action(detail=True, methods=['get'])
     def add_symptom(self, request, pk=None):
