@@ -1,7 +1,7 @@
 from rest_framework import mixins, permissions, viewsets
 
-from . models import Message
-from . serializers import MessageSerializer
+from . models import Invitation, Message
+from . serializers import InvitationSerializer, MessageSerializer
 from . tasks import send_message
 
 
@@ -15,6 +15,14 @@ class MessageViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         if sender:
             message = serializer.save()
         else:
-            message = serializer.save(sender=self.request.user.email)
+            message = serializer.save(sender=self.request.user.email) # check auth
 
         send_message.delay(message.id)
+
+
+class InvitationViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    queryset = Invitation.objects.all()
+    serializer_class = InvitationSerializer
+
+    def perform_create(self, serializer):
+        i = serializer.save(sender=self.request.user)
